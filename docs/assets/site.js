@@ -281,6 +281,37 @@
         new IntersectionObserver((ent) => { visivel = ent[0].isIntersecting; }).observe(viewer);
     }
 
+    // --------------------------------------------------------------- café (Pix)
+    async function copiar(texto) {
+        try {
+            await navigator.clipboard.writeText(texto);
+            return true;
+        } catch (_) {
+            // reserva para navegadores sem a API de área de transferência
+            const t = document.createElement('textarea');
+            t.value = texto;
+            t.style.position = 'fixed';
+            t.style.opacity = '0';
+            document.body.appendChild(t);
+            t.select();
+            const ok = document.execCommand('copy');
+            t.remove();
+            return ok;
+        }
+    }
+    const pix = window.PIX;
+    if (pix && $('#copiarPix')) {
+        const aviso = $('#pixAviso');
+        const avisar = (ok, msg) => {
+            aviso.textContent = ok ? msg : 'Não consegui copiar. Selecione e copie a chave manualmente.';
+            aviso.classList.toggle('ok', ok);
+        };
+        $('#copiarPix').addEventListener('click', async () => avisar(await copiar(pix.copiaECola),
+            '✔ Pix copia e cola copiado! Abra o app do banco › Pix › Pix copia e cola e cole.'));
+        $('#copiarChave').addEventListener('click', async () => avisar(await copiar(pix.chave.replace(/\D/g, '')),
+            '✔ Chave Pix (CPF) copiada!'));
+    }
+
     // ----------------------------------------------------------------- início
     carregarFontes().then(() => {
         montarBin();

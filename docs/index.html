@@ -29,6 +29,7 @@
         <a href="#templates">Templates</a>
         <a href="#instalar">Instalar</a>
         <a href="#perguntas">Perguntas</a>
+        <a href="#cafe" class="link-cafe">☕ Café</a>
     </nav>
     <a class="botao botao-pequeno" data-download href="#baixar">Baixar grátis</a>
 </header>
@@ -199,6 +200,36 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
             </a>
             <p class="miudo">Ao baixar, você recebe o plugin, os instaladores e o guia LEIA-ME.
                 <a id="linkCodigo" href="#">Código-fonte e versões anteriores</a></p>
+            <p class="convite-cafe">Gostou? <a href="#cafe">Pague um café ☕</a></p>
+        </div>
+    </section>
+
+    <!-- ============================ Café (Pix) ============================ -->
+    <section class="secao" id="cafe">
+        <div class="cafe">
+            <div class="cafe-texto">
+                <span class="kicker">06 — Pague um café</span>
+                <h2>O plugin é grátis. O café é opcional. ☕</h2>
+                <p>Se o DaVinci Textos Virais economizou o seu tempo de edição, você pode pagar um café
+                    para ajudar a manter o projeto e criar novos templates. Qualquer valor, via Pix.</p>
+                <div class="pix-chave">
+                    <span class="rotulo-pix">Chave Pix (CPF)</span>
+                    <strong id="pixChave">997.502.011-91</strong>
+                    <span class="pix-nome">Recebedor: <b id="pixNome">Claro Barbosa</b></span>
+                </div>
+                <div class="pix-botoes">
+                    <button class="botao" id="copiarPix" type="button">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+                        Copiar Pix copia e cola
+                    </button>
+                    <button class="botao fantasma" id="copiarChave" type="button">Copiar só a chave</button>
+                </div>
+                <p class="pix-aviso" id="pixAviso" role="status" aria-live="polite">No celular: copie e cole em <i>Pix › Pix copia e cola</i> no app do seu banco.</p>
+            </div>
+            <figure class="pix-qr">
+                <img src="assets/pix-qr.svg" alt="QR Code Pix para pagar um café" width="264" height="264">
+                <figcaption>Aponte a câmera do app do banco</figcaption>
+            </figure>
         </div>
     </section>
 </main>
@@ -206,7 +237,7 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
 <footer class="rodape">
     <div>
         <span class="marca"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></span> DaVinci <b>Textos Virais</b></span>
-        <p>Desenvolvido por <b>Netto Mello Videomaker</b></p>
+        <p>Desenvolvido por <b>Netto Mello Videomaker</b> · <a href="#cafe">☕ Pague um café</a></p>
     </div>
     <p class="aviso-legal">DaVinci Resolve é marca da Blackmagic Design. Este é um plugin independente e gratuito,
         sem vínculo com a Blackmagic Design.</p>
@@ -218,6 +249,7 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
 <script src="assets/motor/preview.js"></script>
 <script src="assets/dados.js"></script>
 <script src="assets/config.js"></script>
+<script src="assets/pix.js"></script>
 <script src="assets/site.js"></script>
 </body>
 </html>
