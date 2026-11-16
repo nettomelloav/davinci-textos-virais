@@ -68,7 +68,8 @@ code { font: 14px var(--mono); background: var(--painel-2); padding: 1px 6px; bo
 }
 .logo svg { width: 16px; height: 16px; fill: #fff; }
 .links { display: flex; gap: 22px; margin-left: auto; }
-.links a { text-decoration: none; color: var(--suave); font-size: 15px; }
+.links a { text-decoration: none; color: var(--suave); font-size: 15px; white-space: nowrap; }
+.nav .marca, .nav .botao-pequeno { white-space: nowrap; flex: 0 0 auto; }
 .links a:hover { color: var(--texto); }
 
 /* ------------------------------------------------------------------ botões */
@@ -359,6 +360,7 @@ h2 { font-size: clamp(30px, 3.6vw, 46px); line-height: 1.08; letter-spacing: -.0
 /* ------------------------------------------------------------- responsivo */
 @media (max-width: 980px) {
     .hero { grid-template-columns: 1fr; }
+    .links a:not(.link-cafe) { display: none; }   /* menu enxuto em telas médias */
     .grade-recursos, .passos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .requisitos, .faq { grid-template-columns: 1fr; }
     .cafe { grid-template-columns: 1fr; }
