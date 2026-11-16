@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <!-- Política de segurança: só scripts e estilos locais -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+    <title>DaVinci Textos Virais</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<!-- ===================== Coluna da esquerda: controles ===================== -->
+<main class="coluna-controles">
+    <header class="topo">
+        <div>
+            <h1>DaVinci Textos Virais</h1>
+            <span class="sub">Textos animados estilo Reels para o DaVinci Resolve</span>
+        </div>
+        <!-- mantém a janela do plugin por cima do DaVinci Resolve -->
+        <button id="btnFixar" class="secundario fixar" aria-pressed="false" title="Manter esta janela sempre por cima do DaVinci Resolve">&#x1F4CC; Fixar</button>
+    </header>
+
+    <!-- Abas: cada assunto numa aba, para não precisar rolar -->
+    <nav class="abas" role="tablist">
+        <button class="aba" role="tab" data-aba="templates">Templates</button>
+        <button class="aba" role="tab" data-aba="texto">Texto</button>
+        <button class="aba" role="tab" data-aba="efeitos">Efeitos</button>
+        <button class="aba" role="tab" data-aba="som">Som</button>
+        <button class="aba" role="tab" data-aba="transcricao">Transcrição</button>
+    </nav>
+
+    <div class="paineis">
+        <!-- ===================== Templates ===================== -->
+        <section class="painel-aba" id="aba-templates" role="tabpanel">
+            <div class="titulo-secao">
+                <span class="sub">passe o mouse para ver · clique para usar</span>
+            </div>
+        <label class="check-inline opcao-templates" title="Os templates usam a fonte e o peso escolhidos no formulário, em vez da fonte sugerida pelo template">
+            <input id="manterFonte" type="checkbox"> Usar a minha fonte em todos os templates
+        </label>
+        <div id="templates" class="galeria" role="list"></div>
+        <div class="linha salvar-template">
+            <input id="nomeTemplate" placeholder="Nome do novo template" maxlength="40">
+            <button id="btnSalvarTemplate" class="secundario" title="Salva estilo, fonte, cores e posição atuais">Salvar template</button>
+        </div>
+
+        <!-- Exporta os templates como Fusion Titles: arrastáveis da Biblioteca de Efeitos -->
+        <div class="bloco-titulos">
+            <div class="titulo-linha">
+                <strong>Arrastar para a timeline</strong>
+                <button id="btnPastaTitulos" class="link" title="Abre a pasta dos títulos instalados">Ver pasta…</button>
+            </div>
+            <p class="dica">Instala todos os templates como <b>Fusion Titles</b>. Depois é só arrastar de
+                <b>Effects Library › Titles › Fusion Titles › DaVinci Textos Virais</b> para a timeline.
+                A saída se ajusta sozinha à duração do clipe.</p>
+            <div class="linha">
+                <div class="campo">
+                    <label for="formatoTitulos">Formato</label>
+                    <select id="formatoTitulos">
+                        <option value="timeline">Timeline atual</option>
+                        <option value="1080x1920">9:16 (Reels, 1080×1920)</option>
+                        <option value="1920x1080">16:9 (1920×1080)</option>
+                        <option value="1080x1350">4:5 (1080×1350)</option>
+                        <option value="1080x1080">1:1 (1080×1080)</option>
+                    </select>
+                </div>
+                <button id="btnExportarTitulos" class="primario">Instalar na Biblioteca</button>
+            </div>
+        </div>
+        </section>
+
+        <!-- ===================== Texto ===================== -->
+        <section class="painel-aba" id="aba-texto" role="tabpanel" hidden>
+        <!-- Aparece quando um template de composição (várias camadas) está ativo -->
+        <div id="avisoComposicao" class="aviso-composicao" hidden>
+            <div>Composição <b id="nomeComposicao"></b> · <span id="linhasComposicao"></span><br>
+                <small>Cada linha do texto é uma camada. Fonte, cores e efeitos vêm das camadas.</small></div>
+            <button id="btnSairComposicao" class="link" title="Volta para um texto simples">texto simples</button>
+        </div>
+        <label for="texto">Texto <small class="so-simples">(use *palavra* para destacar)</small></label>
+        <textarea id="texto" rows="3" placeholder="Digite a legenda...">Isso aqui é *incrível*</textarea>
+
+        <!-- Composição: fonte, peso e cor de cada linha -->
+        <div class="so-composicao">
+            <label>Camadas</label>
+            <div id="painelCamadas" class="painel-camadas"></div>
+        </div>
+
+        <div class="linha">
+            <div class="campo">
+                <label for="estilo">Entrada</label>
+                <select id="estilo"></select>
+            </div>
+            <div class="campo">
+                <label for="duracao">Duração (s)</label>
+                <input id="duracao" type="number" min="0.1" step="0.1" value="3">
+            </div>
+        </div>
+
+        <!-- Animação de saída: combina com qualquer entrada -->
+        <div class="linha">
+            <div class="campo largo">
+                <label for="saida">Saída</label>
+                <select id="saida"></select>
+            </div>
+            <div class="campo">
+                <label for="duracaoSaida">Duração da saída (s)</label>
+                <input id="duracaoSaida" type="number" min="0.05" max="3" step="0.05" value="0.35">
+            </div>
+        </div>
+
+        <div class="linha so-simples">
+            <div class="campo largo">
+                <label for="fonte">Fonte</label>
+                <!-- Seletor com todas as fontes que o Fusion/DaVinci reconhece -->
+                <div class="seletor-fonte">
+                    <input id="fonte" type="hidden" value="Open Sans">
+                    <button id="btnFonte" type="button" class="botao-fonte" aria-haspopup="listbox" aria-expanded="false">
+                        <span id="nomeFonte">Open Sans</span><span class="seta">&#9662;</span>
+                    </button>
+                    <div id="painelFontes" class="painel-fontes" hidden>
+                        <input id="buscaFonte" placeholder="Buscar fonte..." autocomplete="off" spellcheck="false">
+                        <div id="listaFontes" role="listbox" tabindex="-1"></div>
+                        <div id="rodapeFontes" class="rodape-fontes"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="campo">
+                <label for="estiloFonte">Peso</label>
+                <select id="estiloFonte"><option>Bold</option></select>
+            </div>
+        </div>
+
+        <div class="linha so-simples">
+            <div class="campo cor">
+                <label for="cor">Cor</label>
+                <input id="cor" type="color" value="#ffffff">
+            </div>
+            <div class="campo cor">
+                <label for="corDestaque">Destaque</label>
+                <input id="corDestaque" type="color" value="#ffd400">
+            </div>
+            <div class="campo check-solto">
+                <label><input id="maiusculas" type="checkbox"> MAIÚSCULAS</label>
+            </div>
+        </div>
+
+
+            <!-- Tamanho e posição (também dá para arrastar direto no preview) -->
+            <div class="grade-posicao">
+                <div><label for="tamanho">Tamanho <output data-formato="n3"></output></label>
+                    <input id="tamanho" type="range" min="0.01" max="0.5" step="0.001" value="0.08"></div>
+                <div><label for="x">Posição X <output data-formato="n2"></output></label>
+                    <input id="x" type="range" min="0" max="1" step="0.001" value="0.5"></div>
+                <div><label for="y">Posição Y <output data-formato="n2"></output></label>
+                    <input id="y" type="range" min="0" max="1" step="0.001" value="0.3"></div>
+            </div>
+        </section>
+
+        <!-- ===================== Efeitos ===================== -->
+        <section class="painel-aba" id="aba-efeitos" role="tabpanel" hidden>
+            <p class="dica so-composicao">Numa composição, cada camada tem fonte, cor e efeitos próprios
+                (veja o painel <b>Camadas</b> na aba Texto).</p>
+        <!-- Efeitos do texto: ligar um efeito mostra os controles dele -->
+        <div class="efeitos so-simples">
+            <div class="efeito">
+                <label class="check-inline"><input id="contorno" type="checkbox" checked> Contorno</label>
+                <div class="controles-efeito">
+                    <div class="linha">
+                        <div class="campo cor"><label for="corContorno">Cor</label><input id="corContorno" type="color" value="#000000"></div>
+                        <div class="campo"><label for="espessuraContorno">Espessura <output data-formato="n3"></output></label>
+                            <input id="espessuraContorno" type="range" min="0.005" max="0.3" step="0.005" value="0.06"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="efeito">
+                <label class="check-inline"><input id="sombra" type="checkbox" checked> Sombra</label>
+                <div class="controles-efeito">
+                    <div class="linha">
+                        <div class="campo cor"><label for="corSombra">Cor</label><input id="corSombra" type="color" value="#000000"></div>
+                        <div class="campo"><label for="opacidadeSombra">Opacidade <output data-formato="pct"></output></label>
+                            <input id="opacidadeSombra" type="range" min="0" max="1" step="0.05" value="0.8"></div>
+                    </div>
+                    <label for="suavidadeSombra">Desfoque <output data-formato="n1"></output></label>
+                    <input id="suavidadeSombra" type="range" min="0" max="40" step="0.5" value="6">
+                    <div class="linha">
+                        <div class="campo"><label for="sombraX">Distância X <output data-formato="n3"></output></label>
+                            <input id="sombraX" type="range" min="-0.3" max="0.3" step="0.005" value="0.03"></div>
+                        <div class="campo"><label for="sombraY">Distância Y <output data-formato="n3"></output></label>
+                            <input id="sombraY" type="range" min="-0.3" max="0.3" step="0.005" value="0.05"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="efeito">
+                <label class="check-inline"><input id="brilho" type="checkbox"> Brilho</label>
+                <div class="controles-efeito">
+                    <div class="linha">
+                        <div class="campo cor"><label for="corBrilho">Cor</label><input id="corBrilho" type="color" value="#ffffff"></div>
+                        <div class="campo check-solto"><label><input id="brilhoCorTexto" type="checkbox" checked> Mesma cor do texto</label></div>
+                    </div>
+                    <div class="linha">
+                        <div class="campo"><label for="intensidadeBrilho">Intensidade <output data-formato="pct"></output></label>
+                            <input id="intensidadeBrilho" type="range" min="0" max="1" step="0.05" value="1"></div>
+                        <div class="campo"><label for="tamanhoBrilho">Tamanho <output data-formato="n1"></output></label>
+                            <input id="tamanhoBrilho" type="range" min="1" max="60" step="0.5" value="14"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="efeito">
+                <label class="check-inline"><input id="fundo" type="checkbox"> Caixa de fundo</label>
+                <div class="controles-efeito">
+                    <div class="linha">
+                        <div class="campo cor"><label for="corFundo">Cor</label><input id="corFundo" type="color" value="#000000"></div>
+                        <div class="campo"><label for="opacidadeFundo">Opacidade <output data-formato="pct"></output></label>
+                            <input id="opacidadeFundo" type="range" min="0.05" max="1" step="0.05" value="0.85"></div>
+                    </div>
+                    <div class="linha">
+                        <div class="campo"><label for="margemFundoX">Margem lateral <output data-formato="n2"></output></label>
+                            <input id="margemFundoX" type="range" min="0" max="1.5" step="0.01" value="0.25"></div>
+                        <div class="campo"><label for="margemFundoY">Margem vertical <output data-formato="n2"></output></label>
+                            <input id="margemFundoY" type="range" min="0" max="0.6" step="0.01" value="0.1"></div>
+                    </div>
+                    <label for="arredondarFundo">Arredondamento <output data-formato="pct"></output></label>
+                    <input id="arredondarFundo" type="range" min="0" max="1" step="0.05" value="0.3">
+                </div>
+            </div>
+        </div>
+
+        </section>
+
+        <!-- ===================== Som ===================== -->
+        <section class="painel-aba" id="aba-som" role="tabpanel" hidden>
+        <!-- Efeitos sonoros sincronizados com a animação -->
+        <div class="bloco-som">
+            <div class="titulo-linha">
+                <label class="check-inline"><input id="sons" type="checkbox" checked> Efeitos sonoros</label>
+                <button id="btnPastaSons" class="link" title="Abre a pasta onde você pode colocar seus próprios sons">Meus sons…</button>
+            </div>
+            <div id="opcoesSom">
+                <div class="linha">
+                    <div class="campo">
+                        <label for="somEntrada">Som de entrada</label>
+                        <select id="somEntrada"></select>
+                    </div>
+                    <button id="btnOuvirEntrada" class="secundario icone" title="Ouvir som de entrada">&#9654;</button>
+                </div>
+                <div class="linha">
+                    <div class="campo">
+                        <label for="somPalavra">Som por palavra <small id="dicaPalavra"></small></label>
+                        <select id="somPalavra"></select>
+                    </div>
+                    <button id="btnOuvirPalavra" class="secundario icone" title="Ouvir som por palavra">&#9654;</button>
+                </div>
+                <div class="linha">
+                    <div class="campo">
+                        <label for="somSaida">Som de saída</label>
+                        <select id="somSaida"></select>
+                    </div>
+                    <button id="btnOuvirSaida" class="secundario icone" title="Ouvir som de saída">&#9654;</button>
+                </div>
+                <label for="volumeSom">Volume dos efeitos <output data-formato="db"></output></label>
+                <input id="volumeSom" type="range" min="-30" max="6" step="1" value="-8">
+            </div>
+        </div>
+
+        </section>
+
+        <!-- ===================== Transcrição ===================== -->
+        <section class="painel-aba" id="aba-transcricao" role="tabpanel" hidden>
+            <p class="dica">Transcrição automática com faster-whisper: gera um texto animado por frase ou palavra.</p>
+        <label>Origem do áudio</label>
+        <div class="linha">
+            <label class="radio"><input type="radio" name="origem" value="clipe" checked> Clipe selecionado</label>
+            <label class="radio"><input type="radio" name="origem" value="arquivo"> Arquivo</label>
+        </div>
+        <div id="origemArquivo" hidden>
+            <div class="linha">
+                <input id="arquivo" readonly placeholder="Nenhum arquivo">
+                <button id="btnArquivo" class="secundario">Escolher</button>
+            </div>
+            <label for="tcInicio">Timecode onde o áudio começa na timeline</label>
+            <input id="tcInicio" placeholder="vazio = início da timeline">
+        </div>
+
+        <div class="linha">
+            <div class="campo">
+                <label for="modo">Gerar</label>
+                <select id="modo">
+                    <option value="frase">Por frase curta</option>
+                    <option value="palavra">Por palavra</option>
+                    <option value="segmento">Por segmento (Whisper)</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="maxPalavras">Máx. palavras</label>
+                <input id="maxPalavras" type="number" min="1" max="20" value="4">
+            </div>
+        </div>
+        <div class="linha">
+            <div class="campo">
+                <label for="modelo">Modelo</label>
+                <select id="modelo">
+                    <option value="tiny">tiny (rápido)</option>
+                    <option value="base">base</option>
+                    <option value="small" selected>small</option>
+                    <option value="medium">medium</option>
+                    <option value="large-v3">large-v3 (preciso)</option>
+                    <option value="turbo">turbo</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="idioma">Idioma</label>
+                <select id="idioma">
+                    <option value="pt" selected>Português</option>
+                    <option value="en">Inglês</option>
+                    <option value="es">Espanhol</option>
+                    <option value="auto">Detectar</option>
+                </select>
+            </div>
+        </div>
+        <p class="dica">Usa o template, o estilo e a posição definidos nas outras abas.</p>
+        <button id="btnTranscrever" class="primario largo">Transcrever e inserir</button>
+        <progress id="progresso" max="100" value="0" hidden></progress>
+        </section>
+    </div>
+
+    <!-- Ações sempre visíveis -->
+    <div class="acoes">
+        <div class="linha">
+            <input id="timecode" placeholder="Timecode (vazio = playhead)" pattern="\d\d[:;]\d\d[:;]\d\d[:;]\d\d" title="Timecode onde o texto entra">
+            <button id="btnPlayhead" class="secundario" title="Usar a posição atual do playhead">Playhead</button>
+        </div>
+        <div class="botoes">
+            <button id="btnAplicar" class="primario">Aplicar</button>
+            <button id="btnAtualizar">Atualizar selecionado</button>
+        </div>
+        <button id="btnCarregar" class="link">Carregar dados do texto selecionado</button>
+    </div>
+</main>
+
+<!-- ===================== Coluna da direita: tela de preview ===================== -->
+<aside class="coluna-preview">
+    <section id="secPreview" class="preview">
+        <div class="palco" id="palco">
+            <!-- a camada de edição fica exatamente por cima do canvas da animação -->
+            <div class="tela" id="tela" tabindex="0" aria-label="Prévia: arraste o texto para mover, cantos ou roda do mouse para redimensionar">
+                <canvas id="telaPreview"></canvas>
+                <canvas id="camadaEdicao"></canvas>
+            </div>
+        </div>
+        <div class="trilha"><div id="trilhaPos"></div></div>
+        <div class="linha controles-preview">
+            <span id="rotuloPreview" class="rotulo">Prévia: formulário</span>
+            <select id="proporcao" title="Proporção da tela de preview">
+                <option value="timeline">Timeline</option>
+                <option value="1080x1920">9:16</option>
+                <option value="1920x1080">16:9</option>
+                <option value="1080x1350">4:5</option>
+                <option value="1080x1080">1:1</option>
+            </select>
+            <button id="btnQuadro" class="secundario icone" title="Usar o quadro da timeline sob o playhead como fundo">Quadro</button>
+            <button id="btnSomPreview" class="secundario icone ligado" title="Som no preview (liga/desliga)">&#x1F50A;</button>
+            <button id="btnReplay" class="secundario icone" title="Repetir a animação">&#x21bb;</button>
+        </div>
+        <p class="dica-edicao">
+            <b>Editar com o mouse:</b> arraste o texto para mover · puxe os cantos ou use a roda do mouse
+            para aumentar/diminuir · clique fora do texto para levá-lo até ali · duplo clique centraliza ·
+            setas movem (Shift = mais) · + e − mudam o tamanho. Ímã no centro da tela.
+        </p>
+    </section>
+</aside>
+</div>
+
+    <footer class="rodape">
+        <span id="status" role="status">Pronto.</span>
+        <span class="credito">Desenvolvido por <b>Netto Mello Videomaker</b></span>
+    </footer>
+
+    <script src="preview.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "pop": {
+    "nome": "Pop",
+    "arquivo": "pop.wav",
+    "antecipar": 0.0,
+    "duracao": 0.12
+  },
+  "bloop": {
+    "nome": "Bloop (bolha)",
+    "arquivo": "bloop.wav",
+    "antecipar": 0.0,
+    "duracao": 0.09
+  },
+  "whoosh": {
+    "nome": "Whoosh",
+    "arquivo": "whoosh.wav",
+    "antecipar": 0.25,
+    "duracao": 0.55
+  },
+  "swoosh": {
+    "nome": "Swoosh subindo",
+    "arquivo": "swoosh.wav",
+    "antecipar": 0.22,
+    "duracao": 0.35
+  },
+  "slide": {
+    "nome": "Deslizar suave",
+    "arquivo": "slide.wav",
+    "antecipar": 0.15,
+    "duracao": 0.4
+  },
+  "clique": {
+    "nome": "Clique de teclado",
+    "arquivo": "clique.wav",
+    "antecipar": 0.0,
+    "duracao": 0.04
+  },
+  "tique": {
+    "nome": "Tique",
+    "arquivo": "tique.wav",
+    "antecipar": 0.0,
+    "duracao": 0.035
+  },
+  "ding": {
+    "nome": "Ding",
+    "arquivo": "ding.wav",
+    "antecipar": 0.0,
+    "duracao": 1.3
+  },
+  "impacto": {
+    "nome": "Impacto (boom)",
+    "arquivo": "impacto.wav",
+    "antecipar": 0.0,
+    "duracao": 0.7
+  },
+  "brilho": {
+    "nome": "Brilho",
+    "arquivo": "brilho.wav",
+    "antecipar": 0.0,
+    "duracao": 0.6
+  },
+  "glitch": {
+    "nome": "Glitch",
+    "arquivo": "glitch.wav",
+    "antecipar": 0.0,
+    "duracao": 0.25
+  }
+}

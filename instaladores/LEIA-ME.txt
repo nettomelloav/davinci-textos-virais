@@ -1,0 +1,40 @@
+DaVinci Textos Virais — plugin gratuito para DaVinci Resolve Studio
+Desenvolvido por Netto Mello Videomaker
+=====================================================================
+
+Textos animados estilo Reels, letterings com várias camadas, efeitos, sons
+sincronizados, transcrição automática e templates arrastáveis para a timeline.
+
+REQUISITOS
+- DaVinci Resolve STUDIO 21.1 ou mais novo (o recurso Workflow Integrations é do Studio).
+- macOS (testado). Windows: instalador experimental, ainda não testado.
+- Transcrição (opcional): baixa o faster-whisper e o modelo de voz (internet).
+
+INSTALAR NO macOS
+1. Dê dois cliques em "Instalar.command".
+   Se o macOS bloquear ("desenvolvedor não identificado"): clique com o botão
+   direito em Instalar.command > Abrir > Abrir.
+   Alternativa: abra o Terminal e digite:  bash  (arraste o Instalar.command)  Enter
+2. Digite a sua senha de administrador quando pedir.
+3. No Resolve: Preferências > Sistema > Geral > "External scripting using" = Local.
+4. Reinicie o Resolve e abra Workspace > Workflow Integrations > DaVinci Textos Virais.
+
+INSTALAR NO WINDOWS (experimental)
+1. Botão direito em "Instalar-Windows.bat" > Executar como administrador.
+2. Preferências > Sistema > Geral > "External scripting using" = Local.
+3. Reinicie o Resolve.
+Transcrição no Windows (opcional), no Prompt de Comando:
+   py -3.11 -m venv "%APPDATA%\EditorDeLegendas\venv"
+   "%APPDATA%\EditorDeLegendas\venv\Scripts\pip" install faster-whisper
+
+PRIMEIROS PASSOS
+- Aba Templates: passe o mouse para ver a animação; clique para usar.
+- Aba Texto: escreva (numa composição, cada linha é uma camada).
+- Botão Aplicar: insere na timeline, sem mexer na sua edição.
+- "Instalar na Biblioteca": cria Fusion Titles para arrastar de
+  Effects Library > Titles > Fusion Titles > DaVinci Textos Virais.
+- 📌 Fixar: deixa a janela do plugin por cima do Resolve.
+
+É gratuito. Pode compartilhar o link da página oficial.
+O arquivo WorkflowIntegration.node é da Blackmagic Design e é copiado da sua
+própria instalação do DaVinci Resolve pelo instalador.

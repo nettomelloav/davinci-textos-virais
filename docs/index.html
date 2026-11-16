@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DaVinci Textos Virais — plugin gratuito de textos animados para DaVinci Resolve</title>
+    <meta name="description" content="Plugin gratuito para DaVinci Resolve Studio: 29 templates de textos virais animados, letterings, efeitos, sons sincronizados, transcrição automática e títulos arrastáveis para a timeline.">
+    <meta property="og:title" content="DaVinci Textos Virais — plugin gratuito para DaVinci Resolve">
+    <meta property="og:description" content="Textos animados estilo Reels direto na sua timeline. 29 templates, letterings, sons e transcrição automática. 100% grátis.">
+    <meta property="og:image" content="assets/plugin.jpg">
+    <meta name="theme-color" content="#0b0c10">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23ff4d3d'/><path d='M22 18l26 14-26 14z' fill='white'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fontes da página e equivalentes web das fontes dos templates -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,900&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Bitter:ital,wght@0,700;0,900;1,700;1,900&family=Nunito+Sans:ital,wght@0,500;0,700;0,900;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,500;0,700;1,500&family=Courier+Prime:wght@400;700&family=Anton&family=Archivo+Black&display=swap">
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- ============================ Navegação ============================ -->
+<header class="nav">
+    <a class="marca" href="#topo" aria-label="DaVinci Textos Virais">
+        <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></span>
+        <span>DaVinci <b>Textos Virais</b></span>
+    </a>
+    <nav class="links">
+        <a href="#recursos">Recursos</a>
+        <a href="#templates">Templates</a>
+        <a href="#instalar">Instalar</a>
+        <a href="#perguntas">Perguntas</a>
+    </nav>
+    <a class="botao botao-pequeno" data-download href="#baixar">Baixar grátis</a>
+</header>
+
+<main id="topo">
+    <!-- ============================ Hero ============================ -->
+    <section class="hero">
+        <div class="hero-texto">
+            <span class="selo"><span class="rec"></span> Plugin gratuito · DaVinci Resolve Studio</span>
+            <h1>Textos <span class="grad">virais</span> animados direto na sua <span class="sublinhado">timeline</span>.</h1>
+            <p class="lead">29 templates prontos, letterings com várias camadas, animações de entrada e saída,
+                efeitos, sons sincronizados e legendas por transcrição automática. Tudo com preview ao vivo,
+                dentro do DaVinci Resolve.</p>
+            <div class="ctas">
+                <a class="botao" data-download href="#baixar">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+                    Baixar grátis
+                </a>
+                <a class="botao fantasma" href="#templates">Ver templates</a>
+            </div>
+            <ul class="mini-info">
+                <li><b>100%</b> grátis</li>
+                <li><b>29</b> templates</li>
+                <li><b>11</b> efeitos sonoros</li>
+                <li>macOS · Windows <small>(beta)</small></li>
+            </ul>
+        </div>
+
+        <!-- Viewer + timeline: os templates reais animando, desenhados pelo motor do plugin -->
+        <div class="suite" aria-label="Demonstração dos templates animando">
+            <div class="janela">
+                <div class="barra-janela">
+                    <span class="bolinhas"><i></i><i></i><i></i></span>
+                    <span class="titulo-janela">Timeline 1 · <span id="nomeClipe">Reels Clássico</span></span>
+                    <span class="tc" id="timecode">01:00:00:00</span>
+                </div>
+                <div class="viewer">
+                    <canvas id="viewer" width="1280" height="720"></canvas>
+                    <div class="guias" aria-hidden="true"></div>
+                    <span class="rec-viewer"><span class="rec"></span>PREVIEW</span>
+                </div>
+                <div class="timeline" id="timeline">
+                    <div class="regua" id="regua"></div>
+                    <div class="faixa"><span class="rotulo-faixa">V2</span><div class="area"><div class="clipe clipe-texto" id="clipeTexto">T: Reels Clássico</div></div></div>
+                    <div class="faixa"><span class="rotulo-faixa">V1</span><div class="area"><div class="clipe clipe-video"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+                    <div class="faixa faixa-audio"><span class="rotulo-faixa">A1</span><div class="area"><canvas class="onda" id="onda" width="900" height="44"></canvas></div></div>
+                    <div class="faixa faixa-sfx"><span class="rotulo-faixa">SFX</span><div class="area" id="sfx"></div></div>
+                    <div class="agulha" id="agulha"><span></span></div>
+                </div>
+            </div>
+            <div class="bin" id="bin" role="list" aria-label="Escolha um template para a demonstração"></div>
+        </div>
+    </section>
+
+    <!-- ============================ Recursos ============================ -->
+    <section class="secao" id="recursos">
+        <div class="cabeca-secao">
+            <span class="kicker">01 — Recursos</span>
+            <h2>Tudo que um texto viral precisa, sem sair do Resolve.</h2>
+        </div>
+        <div class="grade-recursos">
+            <article class="recurso"><span class="icone">✦</span><h3>29 templates</h3>
+                <p>14 legendas (Reels clássico, karaokê, neon, tarja, etiqueta…) e 15 composições com várias camadas.</p></article>
+            <article class="recurso"><span class="icone">Aa</span><h3>Letterings</h3>
+                <p>Fontes misturadas, palavra gigante, script colorido, riscados e sublinhados que se desenham.</p></article>
+            <article class="recurso"><span class="icone">↗</span><h3>Entrada e saída</h3>
+                <p>Pop, fade, subindo, digitação, palavra destacada… e saídas como encolher, deslizar ou apagar.</p></article>
+            <article class="recurso"><span class="icone">◐</span><h3>Efeitos completos</h3>
+                <p>Contorno, sombra, brilho neon e caixa de fundo, com controle de cor, desfoque, distância e opacidade.</p></article>
+            <article class="recurso"><span class="icone">♪</span><h3>Sons sincronizados</h3>
+                <p>11 efeitos sonoros próprios (pop, whoosh, clique, impacto…) inseridos no frame exato e vinculados ao texto.</p></article>
+            <article class="recurso"><span class="icone">◉</span><h3>Transcrição automática</h3>
+                <p>Com faster-whisper: gera uma legenda animada por frase ou por palavra, cada uma no seu tempo.</p></article>
+            <article class="recurso"><span class="icone">▶</span><h3>Preview ao vivo</h3>
+                <p>Veja a animação antes de aplicar. Arraste, aumente e posicione o texto com o mouse direto na tela.</p></article>
+            <article class="recurso"><span class="icone">⇣</span><h3>Arrastar para a timeline</h3>
+                <p>Instale os templates como Fusion Titles e arraste da Biblioteca de Efeitos. A saída se ajusta à duração.</p></article>
+            <article class="recurso"><span class="icone">▯</span><h3>Pronto para vertical</h3>
+                <p>Funciona em 9:16, 16:9, 4:5 e 1:1, com a resolução certa em timelines verticais de Reels e Shorts.</p></article>
+        </div>
+    </section>
+
+    <!-- ============================ Templates ============================ -->
+    <section class="secao" id="templates">
+        <div class="cabeca-secao">
+            <span class="kicker">02 — Templates</span>
+            <h2>Passe o mouse para ver a animação.</h2>
+            <p class="sub-secao">Animações reais, desenhadas pelo mesmo motor do preview do plugin.</p>
+        </div>
+        <div class="filtros" role="tablist">
+            <button class="filtro ativo" data-filtro="todos">Todos</button>
+            <button class="filtro" data-filtro="composicoes">Letterings</button>
+            <button class="filtro" data-filtro="legendas">Legendas</button>
+        </div>
+        <div class="galeria" id="galeria"></div>
+    </section>
+
+    <!-- ============================ O plugin ============================ -->
+    <section class="secao secao-print">
+        <div class="cabeca-secao">
+            <span class="kicker">03 — Por dentro</span>
+            <h2>Uma janela, cinco abas, preview à direita.</h2>
+            <p class="sub-secao">Templates, Texto, Efeitos, Som e Transcrição. Botão 📌 Fixar para deixar a janela por cima do Resolve.</p>
+        </div>
+        <figure class="print">
+            <img src="assets/plugin.jpg" alt="Janela do plugin DaVinci Textos Virais com a galeria de templates e o preview" loading="lazy" width="2360" height="1520">
+        </figure>
+    </section>
+
+    <!-- ============================ Instalar ============================ -->
+    <section class="secao" id="instalar">
+        <div class="cabeca-secao">
+            <span class="kicker">04 — Instalar</span>
+            <h2>Três passos e você está editando.</h2>
+        </div>
+        <ol class="passos">
+            <li><span class="num">1</span><h3>Baixe e descompacte</h3>
+                <p>Baixe o <code>DaVinci-Textos-Virais.zip</code> e abra a pasta.</p></li>
+            <li><span class="num">2</span><h3>Rode o instalador</h3>
+                <p><b>macOS:</b> dois cliques em <code>Instalar.command</code> (se o macOS bloquear: botão direito › Abrir).
+                    <b>Windows:</b> botão direito em <code>Instalar-Windows.bat</code> › Executar como administrador.</p></li>
+            <li><span class="num">3</span><h3>Ative e abra</h3>
+                <p>No Resolve: <i>Preferências › Sistema › Geral › External scripting using</i> = <b>Local</b>.
+                    Reinicie e abra <i>Workspace › Workflow Integrations › DaVinci Textos Virais</i>.</p></li>
+        </ol>
+        <div class="requisitos">
+            <div><span class="kicker">Requisitos</span>
+                <ul>
+                    <li>DaVinci Resolve <b>Studio</b> 21.1 ou mais novo</li>
+                    <li>macOS (testado) · Windows (beta, em teste)</li>
+                    <li>Transcrição opcional: o instalador baixa o faster-whisper</li>
+                </ul></div>
+            <div class="terminal" aria-label="Exemplo do instalador">
+                <div class="barra-term"><span class="bolinhas"><i></i><i></i><i></i></span> Instalar.command</div>
+<pre>▶  DaVinci Textos Virais — instalador
+   Desenvolvido por Netto Mello Videomaker
+
+<span class="ok">✔</span> Plugin instalado
+Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ Perguntas ============================ -->
+    <section class="secao" id="perguntas">
+        <div class="cabeca-secao">
+            <span class="kicker">05 — Perguntas</span>
+            <h2>Perguntas frequentes</h2>
+        </div>
+        <div class="faq">
+            <details><summary>É grátis mesmo?</summary><p>Sim. O plugin, os templates e os efeitos sonoros são gratuitos, sem cadastro e sem marca d'água.</p></details>
+            <details><summary>Funciona no DaVinci Resolve gratuito?</summary><p>Os plugins de Workflow Integration são um recurso do DaVinci Resolve <b>Studio</b>. Na versão gratuita o menu Workflow Integrations não aparece.</p></details>
+            <details><summary>Funciona no Windows?</summary><p>O plugin foi feito e testado no macOS. O instalador do Windows está incluído como beta: se encontrar algum problema, avise.</p></details>
+            <details><summary>Preciso instalar fontes?</summary><p>Não. O plugin lista todas as fontes que o seu DaVinci reconhece e sempre usa uma combinação de fonte e estilo que existe no seu computador.</p></details>
+            <details><summary>Os sons têm direitos autorais?</summary><p>Não. Os 11 efeitos sonoros são sintetizados pelo próprio plugin. Você também pode adicionar os seus em "Meus sons…".</p></details>
+            <details><summary>Como arrasto um template para a timeline?</summary><p>Na aba Templates, clique em "Instalar na Biblioteca". Depois arraste de <i>Effects Library › Titles › Fusion Titles › DaVinci Textos Virais</i>.</p></details>
+        </div>
+    </section>
+
+    <!-- ============================ Download ============================ -->
+    <section class="baixar" id="baixar">
+        <div class="baixar-conteudo">
+            <h2>Comece agora. É grátis.</h2>
+            <p>DaVinci Textos Virais <span id="versao">v1.4</span> · macOS e Windows (beta) · ~600 KB</p>
+            <a class="botao botao-grande" data-download href="#">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+                Baixar DaVinci Textos Virais
+            </a>
+            <p class="miudo">Ao baixar, você recebe o plugin, os instaladores e o guia LEIA-ME.
+                <a id="linkCodigo" href="#">Código-fonte e versões anteriores</a></p>
+        </div>
+    </section>
+</main>
+
+<footer class="rodape">
+    <div>
+        <span class="marca"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></span> DaVinci <b>Textos Virais</b></span>
+        <p>Desenvolvido por <b>Netto Mello Videomaker</b></p>
+    </div>
+    <p class="aviso-legal">DaVinci Resolve é marca da Blackmagic Design. Este é um plugin independente e gratuito,
+        sem vínculo com a Blackmagic Design.</p>
+</footer>
+
+<!-- Motor de animação do plugin (o mesmo do preview) -->
+<script>window.module = { exports: {} };</script>
+<script src="assets/motor/estilos.js"></script>
+<script src="assets/motor/preview.js"></script>
+<script src="assets/dados.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

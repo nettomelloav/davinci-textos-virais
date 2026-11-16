@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BlackmagicDesign>
+    <Plugin>
+        <Id>com.netto.editordelegendas</Id>
+        <Name>DaVinci Textos Virais</Name>
+        <Version>1.4</Version>
+        <Description>DaVinci Textos Virais: textos animados estilo Reels (entrada, saída, efeitos e sons), templates arrastáveis e legendas por transcrição automática.</Description>
+        <FilePath>main.js</FilePath>
+    </Plugin>
+</BlackmagicDesign>

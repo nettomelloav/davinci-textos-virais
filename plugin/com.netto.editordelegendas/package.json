@@ -1,0 +1,11 @@
+{
+    "name": "davinci-textos-virais",
+    "productName": "DaVinci Textos Virais",
+    "version": "1.0.0",
+    "description": "DaVinci Textos Virais - plugin Workflow Integration do DaVinci Resolve Studio para textos animados estilo Reels",
+    "main": "main.js",
+    "author": "Netto",
+    "scripts": {
+        "start": "electron ."
+    }
+}
