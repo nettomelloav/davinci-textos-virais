@@ -42,14 +42,49 @@
     }
 
     // ------------------------------------------------------- specs dos templates
+    // retrato (9:16): as composições ficam maiores, como no plugin (FATOR_RETRATO = 1.8)
     function specDe(t, aspecto = 16 / 9) {
         const params = { ...t, duracao: 3.2, sons: true };
+        if (aspecto < 1 && t.camadas) {
+            // demonstração vertical: lettering acima do meio, longe dos ícones e da legenda do Reels
+            params.tamanho = Number(t.tamanho || 0.06) * 1.8;
+            params.y = 0.58;
+            params.x = 0.46;   // um pouco para a esquerda: os ícones do Reels ficam à direita
+        } else if (aspecto < 1) {
+            // legendas: um pouco maiores na tela estreita e acima da legenda do Reels
+            params.tamanho = Number(t.tamanho || 0.08) * 1.35;
+            params.y = Math.max(Number(t.y ?? 0.3), 0.32);
+            params.x = 0.46;
+        }
         const dur = Math.round(params.duracao * FPS);
         return { spec: E.montarSpec(params, dur, FPS, null, { aspecto }), dur };
     }
 
+    // Foto real de fundo do viewer (assets/fundo-reels.jpg), com um zoom lento como um vídeo.
+    // Sem a foto (ou enquanto carrega), usa o gradiente animado abaixo.
+    const fotoFundo = new Image();
+    let fotoPronta = false;
+    fotoFundo.onload = () => { fotoPronta = true; };
+    fotoFundo.src = 'assets/fundo-reels.jpg?v=1';
+
+    function fundoFoto(ctx, W, H, t) {
+        const zoom = 1.06 + 0.05 * Math.sin(t * 0.12);           // aproxima e afasta devagar
+        const esc = Math.max(W / fotoFundo.naturalWidth, H / fotoFundo.naturalHeight) * zoom;
+        const w = fotoFundo.naturalWidth * esc;
+        const h = fotoFundo.naturalHeight * esc;
+        const dx = Math.sin(t * 0.09) * (w - W) * 0.35;           // panorâmica leve
+        ctx.drawImage(fotoFundo, (W - w) / 2 + dx, (H - h) / 2, w, h);
+        // escurece um pouco embaixo e em cima (como os Reels) para o texto e a interface lerem bem
+        const g = ctx.createLinearGradient(0, 0, 0, H);
+        g.addColorStop(0, 'rgba(0,0,0,.35)'); g.addColorStop(0.22, 'rgba(0,0,0,0)');
+        g.addColorStop(0.6, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.55)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+    }
+
     // "Vídeo" de fundo do viewer: gradiente com manchas de luz em movimento + vinheta
     function fundoVideo(ctx, W, H, t) {
+        if (fotoPronta) { fundoFoto(ctx, W, H, t); return; }
         const g = ctx.createLinearGradient(0, 0, W, H);
         g.addColorStop(0, '#1b2433');
         g.addColorStop(0.55, '#121722');
@@ -84,7 +119,9 @@
     const vctx = viewer.getContext('2d');
     const destaque = ['c-riscado', 'c-neon-engajante', 'c-elegante', 'karaoke-amarelo', 'c-impacto-verde',
         'c-inclinado-azul', 'neon', 'c-numero-gancho', 'reels-classico', 'c-luxo', 'c-etiqueta-laranja', 'c-brilho-lilas'];
-    const demo = destaque.map((id) => T.find((t) => t.id === id)).filter(Boolean);
+    // composições (letterings) sempre primeiro, depois as legendas
+    const demo = destaque.map((id) => T.find((t) => t.id === id)).filter(Boolean)
+        .sort((a, b) => (b.camadas ? 1 : 0) - (a.camadas ? 1 : 0));
     let atual = 0;
     let estado = null;          // { t, spec, dur, ciclo, inicio }
     let segundosTotais = 0;     // para o timecode correr sem voltar
@@ -93,7 +130,7 @@
     function selecionar(i) {
         atual = (i + demo.length) % demo.length;
         const t = demo[atual];
-        const { spec, dur } = specDe(t);
+        const { spec, dur } = specDe(t, viewer.width / viewer.height);
         estado = { t, spec, dur, ciclo: dur + Math.round(FPS * 0.7), inicio: performance.now() };
         $('#nomeClipe').textContent = t.nome;
         $('#clipeTexto').textContent = 'T: ' + t.nome;
