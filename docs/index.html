@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Fontes da página e equivalentes web das fontes dos templates -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,900&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Bitter:ital,wght@0,700;0,900;1,700;1,900&family=Nunito+Sans:ital,wght@0,500;0,700;0,900;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,500;0,700;1,500&family=Courier+Prime:wght@400;700&family=Anton&family=Archivo+Black&display=swap">
-    <link rel="stylesheet" href="assets/site.css?v=14">
+    <link rel="stylesheet" href="assets/site.css?v=15">
 </head>
 <body>
 
@@ -155,12 +155,13 @@
             <h2>Três passos e você está editando.</h2>
         </div>
         <ol class="passos">
-            <li><span class="num">1</span><h3>Baixe e descompacte</h3>
-                <p>Baixe o <code>DaVinci-Textos-Virais.zip</code> e abra com dois cliques <b>na pasta Downloads ou na Mesa</b>
-                    (não em HD externo: lá o macOS dá "Erro 513").</p></li>
-            <li><span class="num">2</span><h3>Rode o instalador</h3>
-                <p><b>macOS:</b> dois cliques em <code>Instalar.command</code> (se o macOS bloquear: <i>Ajustes do Sistema › Privacidade e Segurança › Abrir Mesmo Assim</i>).
-                    <b>Windows:</b> botão direito em <code>Instalar-Windows.bat</code> › Executar como administrador.</p></li>
+            <li><span class="num">1</span><h3>Baixe o instalador</h3>
+                <p>Baixe o <code>DaVinci-Textos-Virais.pkg</code> e feche o DaVinci Resolve.</p></li>
+            <li><span class="num">2</span><h3>Instale com dois cliques</h3>
+                <p>Abra o <code>.pkg</code> e clique em Continuar até o fim. Se o macOS bloquear:
+                    <i>Ajustes do Sistema › Privacidade e Segurança › Abrir Mesmo Assim</i>.
+                    <b>Windows (beta):</b> baixe o <a href="https://github.com/nettomelloav/davinci-textos-virais/releases/latest/download/DaVinci-Textos-Virais.zip">.zip</a>
+                    e rode o <code>Instalar-Windows.bat</code> como administrador.</p></li>
             <li><span class="num">3</span><h3>Abra e ative</h3>
                 <p>No Resolve: <i>Preferências › Sistema › Geral › External scripting using</i> = <b>Local</b>.
                     Reinicie, abra <i>Workspace › Workflow Integrations › DaVinci Textos Virais</i>, cole a
@@ -171,15 +172,16 @@
                 <ul>
                     <li>DaVinci Resolve <b>Studio</b> 21.1 ou mais novo</li>
                     <li>macOS (testado) · Windows (beta, em teste)</li>
-                    <li>Transcrição opcional: o instalador baixa o faster-whisper</li>
+                    <li>Transcrição opcional: um clique em "Instalar transcrição" no plugin</li>
                 </ul></div>
             <div class="terminal" aria-label="Exemplo do instalador">
-                <div class="barra-term"><span class="bolinhas"><i></i><i></i><i></i></span> Instalar.command</div>
-<pre>▶  DaVinci Textos Virais — instalador
-   Desenvolvido por Netto Mello Videomaker
+                <div class="barra-term"><span class="bolinhas"><i></i><i></i><i></i></span> Instalar DaVinci Textos Virais</div>
+<pre><span class="ok">✔</span> Introdução
+<span class="ok">✔</span> Tipo de instalação
+<span class="ok">✔</span> Instalação
+▶ Resumo: <b>A instalação foi concluída.</b>
 
-<span class="ok">✔</span> Plugin instalado
-Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre>
+Abra o DaVinci › Workspace › Workflow Integrations <span class="cursor">▍</span></pre>
             </div>
         </div>
     </section>
@@ -214,7 +216,7 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
                 <p class="pix-aviso" id="pixAviso" role="status" aria-live="polite">No celular: copie e cole em <i>Pix › Pix copia e cola</i> no app do seu banco.</p>
             </div>
             <figure class="pix-qr">
-                <img src="assets/pix-qr.svg?v=14" alt="QR Code Pix de R$ 19,00 para comprar o DaVinci Textos Virais" width="264" height="264">
+                <img src="assets/pix-qr.svg?v=15" alt="QR Code Pix de R$ 19,00 para comprar o DaVinci Textos Virais" width="264" height="264">
                 <figcaption>Aponte a câmera do app do banco</figcaption>
             </figure>
         </div>
@@ -223,13 +225,13 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
     <section class="baixar" id="baixar">
         <div class="baixar-conteudo">
             <h2>Já comprou? Baixe o plugin.</h2>
-            <p>DaVinci Textos Virais <span id="versao">v1.6</span> · macOS e Windows (beta) · ~600 KB</p>
+            <p>DaVinci Textos Virais <span id="versao">v1.6.1</span> · macOS e Windows (beta) · ~600 KB</p>
             <a class="botao botao-grande" data-download href="#">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
                 Baixar DaVinci Textos Virais
             </a>
-            <p class="miudo">Ao baixar, você recebe o plugin, os instaladores e o guia LEIA-ME.
-                Na primeira vez, o plugin pede a sua chave de licença.</p>
+            <p class="miudo">Instalador para macOS (.pkg). Na primeira vez, o plugin pede a sua chave de licença.
+                Windows (beta): <a href="https://github.com/nettomelloav/davinci-textos-virais/releases/latest/download/DaVinci-Textos-Virais.zip">baixe o .zip</a>.</p>
             <p class="convite-cafe">Ainda não tem a chave? <a href="#comprar">Compre acima por R$ 19,00</a></p>
         </div>
     </section>
@@ -243,8 +245,8 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
         <div class="faq">
             <details><summary>Quanto custa?</summary><p><b>R$ 19,00</b>, pagamento único via Pix. Licença vitalícia, sem mensalidade e sem marca d'água.</p></details>
             <details><summary>Como recebo a chave de licença?</summary><p>Pague o Pix e mande o comprovante com o seu nome completo pelo WhatsApp. Você recebe a chave, que vai no seu nome, e o link do plugin. No DaVinci, abra o DaVinci Textos Virais, cole a chave e clique em <b>Ativar</b>. Não precisa de internet para ativar.</p></details>
-            <details><summary>Deu "Erro 513" ao abrir o zip. E agora?</summary><p>Isso acontece quando o zip baixado é aberto num <b>HD externo</b> (formato exFAT). Arraste o <code>DaVinci-Textos-Virais.zip</code> para a pasta <b>Downloads</b> ou para a <b>Mesa</b> do Mac e dê dois cliques de novo.</p></details>
-            <details><summary>O macOS não deixa abrir o Instalar.command</summary><p>O instalador não tem assinatura da Apple. Tente abrir uma vez, depois vá em <i>Ajustes do Sistema › Privacidade e Segurança</i>, role até o aviso do <code>Instalar.command</code> e clique em <b>Abrir Mesmo Assim</b>.</p></details>
+            <details><summary>O macOS não deixa abrir o instalador</summary><p>O instalador não tem assinatura da Apple. Tente abrir uma vez, depois vá em <i>Ajustes do Sistema › Privacidade e Segurança</i>, role até o aviso do <code>DaVinci-Textos-Virais.pkg</code> e clique em <b>Abrir Mesmo Assim</b>.</p></details>
+            <details><summary>Como atualizo para uma versão nova?</summary><p>Quando sair uma versão nova, o rodapé do plugin avisa. Baixe o <code>.pkg</code> de novo e instale por cima: a sua chave de licença, seus sons e templates continuam.</p></details>
             <details><summary>Funciona no DaVinci Resolve gratuito?</summary><p>Os plugins de Workflow Integration são um recurso do DaVinci Resolve <b>Studio</b>. Na versão gratuita o menu Workflow Integrations não aparece.</p></details>
             <details><summary>Funciona no Windows?</summary><p>O plugin foi feito e testado no macOS. O instalador do Windows está incluído como beta: se encontrar algum problema, avise.</p></details>
             <details><summary>Preciso instalar fontes?</summary><p>Não. O plugin lista todas as fontes que o seu DaVinci reconhece e sempre usa uma combinação de fonte e estilo que existe no seu computador.</p></details>
@@ -266,11 +268,11 @@ Instalar a transcrição automática? [s/N] <span class="cursor">▍</span></pre
 
 <!-- Motor de animação do plugin (o mesmo do preview) -->
 <script>window.module = { exports: {} };</script>
-<script src="assets/motor/estilos.js?v=14"></script>
-<script src="assets/motor/preview.js?v=14"></script>
-<script src="assets/dados.js?v=14"></script>
-<script src="assets/config.js?v=14"></script>
-<script src="assets/pix.js?v=14"></script>
-<script src="assets/site.js?v=14"></script>
+<script src="assets/motor/estilos.js?v=15"></script>
+<script src="assets/motor/preview.js?v=15"></script>
+<script src="assets/dados.js?v=15"></script>
+<script src="assets/config.js?v=15"></script>
+<script src="assets/pix.js?v=15"></script>
+<script src="assets/site.js?v=15"></script>
 </body>
 </html>

@@ -17,12 +17,15 @@
 
 ## Instalar
 
-1. Baixe o [DaVinci-Textos-Virais.zip](https://github.com/nettomelloav/davinci-textos-virais/releases/latest/download/DaVinci-Textos-Virais.zip)
-   e abra com dois cliques **na pasta Downloads ou na Mesa** (em HD externo o macOS dá "Erro 513").
-2. macOS: dois cliques em `Instalar.command`. Se o macOS bloquear:
+1. Baixe o instalador [DaVinci-Textos-Virais.pkg](https://github.com/nettomelloav/davinci-textos-virais/releases/latest/download/DaVinci-Textos-Virais.pkg)
+   e feche o DaVinci Resolve.
+2. Dê dois cliques no `.pkg` e siga até o fim. Se o macOS bloquear:
    **Ajustes do Sistema › Privacidade e Segurança › Abrir Mesmo Assim** (o instalador não tem assinatura da Apple).
 3. No DaVinci Resolve Studio: **Workspace › Workflow Integrations › DaVinci Textos Virais**.
 4. Cole a chave de licença (começa com `DTV1-`) e clique em **Ativar**.
+
+Windows (beta): [DaVinci-Textos-Virais.zip](https://github.com/nettomelloav/davinci-textos-virais/releases/latest/download/DaVinci-Textos-Virais.zip),
+rode o `Instalar-Windows.bat` como administrador.
 
 Requisitos: DaVinci Resolve **Studio** 21.1+ · macOS (testado) · Windows (beta).
 
