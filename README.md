@@ -8,6 +8,7 @@
 - 11 efeitos sonoros próprios, sincronizados e vinculados ao texto
 - Transcrição automática (faster-whisper): legendas por frase ou por palavra
 - Preview ao vivo com edição pelo mouse, pausa e cena real da timeline
+- Safe zones de Reels, TikTok, Shorts, Stories e YouTube no preview, com a interface de cada app
 - Templates como Fusion Titles para arrastar da Biblioteca de Efeitos
 - Pronto para timelines verticais (9:16)
 

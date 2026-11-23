@@ -3,5 +3,5 @@
 window.CONFIG = {
     repo: 'nettomelloav/davinci-textos-virais',
     arquivo: 'DaVinci-Textos-Virais.zip',
-    versao: '1.5',
+    versao: '1.6',
 };
